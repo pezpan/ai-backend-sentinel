@@ -1,41 +1,53 @@
 package com.sentinel.arch.cli;
 
+import com.sentinel.arch.agent.SentinelAgent;
+import com.sentinel.arch.mcp.ProjectMcpTools;
 import com.sentinel.arch.ollama.OllamaConfig;
+import dev.langchain4j.model.chat.ChatModel;
+import dev.langchain4j.service.AiServices;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
 
-import java.nio.file.Path;
 import java.util.concurrent.Callable;
 
-/**
- * Comando: analyze --path &lt;directorio&gt;
- * Analiza un directorio de microservicios con el agente de IA.
- */
-@Command(
-        name = "analyze",
-        description = "Analiza un directorio de código (microservicios Java) usando el modelo local"
-)
+@Command(name = "analyze", description = "Analiza la arquitectura de un proyecto local")
 public class AnalyzeCommand implements Callable<Integer> {
 
-    @Option(
-            names = { "-p", "--path" },
-            required = true,
-            description = "Ruta al directorio a analizar (proyecto o raíz de microservicios)"
-    )
-    private Path path;
+    @Option(names = {"-p", "--path"}, description = "Ruta absoluta del proyecto Java", required = true)
+    private String projectPath;
 
     @Override
     public Integer call() {
-        System.out.println("Sentinel-Arch: analizando path = " + path.toAbsolutePath());
+        System.out.println("🚀 Iniciando Sentinel-Arch sobre: " + projectPath);
 
-        var ollama = new OllamaConfig();
-        if (!ollama.isAvailable()) {
-            System.err.println("Ollama no está disponible en localhost:11434. Comprueba que el servicio esté en marcha.");
+        try {
+            // 1. Obtener el modelo de Ollama
+            OllamaConfig ollamaConfig = new OllamaConfig();
+            ChatModel model = ollamaConfig.createModel();
+
+            // 2. Construir el Agente con capacidades MCP (Tools)
+            SentinelAgent agent = AiServices.builder(SentinelAgent.class)
+                    .chatModel(model)
+                    .tools(new ProjectMcpTools())
+                    .build();
+
+            System.out.println("🧠 El agente está analizando el contexto... (esto puede tardar unos segundos)");
+
+            // 3. Ejecutar la tarea
+            // Le damos una instrucción inicial, el agente usará las herramientas para cumplirla
+            String report = agent.analyze("Analiza el microservicio en la ruta: " + projectPath 
+                    + ". Identifica la arquitectura y genera un diagrama Mermaid.");
+
+            // 4. Mostrar resultado
+            System.out.println("\n--- REPORTE DE ARQUITECTURA SENTINEL ---");
+            System.out.println(report);
+            System.out.println("------------------------------------------");
+
+            return 0;
+        } catch (Exception e) {
+            System.err.println("❌ Error durante el análisis: " + e.getMessage());
+            e.printStackTrace();
             return 1;
         }
-
-        // TODO: integrar MCP y flujo de análisis real
-        System.out.println("Conexión con Ollama OK. Análisis de '" + path + "' pendiente de implementación (MCP).");
-        return 0;
     }
 }

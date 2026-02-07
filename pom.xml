@@ -16,6 +16,7 @@
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
         <langchain4j.version>1.10.0</langchain4j.version>
+        <mcp.sdk.version>0.17.2</mcp.sdk.version>
         <picocli.version>4.7.6</picocli.version>
         <lombok.version>1.18.34</lombok.version>
         <slf4j.version>2.0.16</slf4j.version>
@@ -75,6 +76,12 @@
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
             <version>${jackson.version}</version>
+        </dependency>
+        <!-- MCP Java SDK: implementación oficial de servidor/cliente MCP -->
+        <dependency>
+            <groupId>io.modelcontextprotocol.sdk</groupId>
+            <artifactId>mcp</artifactId>
+            <version>${mcp.sdk.version}</version>
         </dependency>
         <!-- Test -->
         <dependency>

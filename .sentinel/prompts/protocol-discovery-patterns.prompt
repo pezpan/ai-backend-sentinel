@@ -1,0 +1,55 @@
+# Protocol Discovery Patterns
+
+## Inbound Service Detection
+
+### REST API Detection
+- Look for @RestController, @Controller annotations
+- Identify @RequestMapping, @GetMapping, @PostMapping, @PutMapping, @DeleteMapping
+- Check for Spring Web dependency in build files
+- Identify Spring Boot starters: spring-boot-starter-web, spring-boot-starter-webflux
+
+### gRPC Service Detection
+- Search for .proto files in src/main/proto or similar directories
+- Look for generated *Grpc.java classes
+- Identify io.grpc dependencies in build files
+- Find @GrpcService annotations (if using grpc-spring-boot-starter)
+- Locate service definitions with rpc methods
+
+### Message-Driven Architecture Detection
+- Look for @KafkaListener, @RabbitListener, @JmsListener annotations
+- Identify Spring Cloud Stream @StreamListener (deprecated) or functional programming model
+- Check for Spring Cloud Stream bindings in application.yml
+- Find @Input and @Output annotations for stream processors
+- Locate MessageChannel implementations
+
+## Outbound Service Detection
+
+### HTTP Client Calls
+- Identify @FeignClient annotations for declarative REST clients
+- Look for WebClient.create() and RestTemplate usage
+- Find OpenFeign interfaces with HTTP method annotations
+- Check for Ribbon or LoadBalancer configurations
+
+### gRPC Client Calls
+- Look for stub creation: *Grpc.newBlockingStub(), *Grpc.newStub()
+- Identify ManagedChannel configurations
+- Find gRPC client builders
+
+### Messaging Outbound
+- Identify KafkaTemplate.send() calls
+- Look for RabbitTemplate.convertAndSend()
+- Find StreamBridge operations
+- Locate JmsTemplate operations
+
+## Dependency Inference Strategy
+1. Scan for import statements related to outbound calls
+2. Identify configuration classes that set up clients
+3. Look for service method implementations that call external systems
+4. Map the relationship between local methods and external calls
+5. Note the protocols used (REST, gRPC, Kafka, RabbitMQ, etc.)
+
+## Common Dependency Indicators
+- External service URLs in @Value annotations or configuration properties
+- Service discovery annotations like @EnableDiscoveryClient
+- Circuit breaker annotations (@CircuitBreaker, @Retryable)
+- Distributed tracing annotations (@NewSpan, @ContinueSpan)

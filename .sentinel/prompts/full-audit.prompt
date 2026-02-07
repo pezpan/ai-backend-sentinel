@@ -1,0 +1,5 @@
+Act as Sentinel-Arch. Perform a full architectural discovery:
+1. Use 'discover_service_interconnections' for REST/gRPC/Messaging patterns.
+2. Explain the service topology and infer functionality.
+3. Generate a Mermaid diagram for the service flow.
+4. Save the results using 'write_architecture_report' into 'SENTINEL_REPORT.md'.

@@ -1,0 +1,21 @@
+---
+description: Tras cambios en el proyecto, revisar y actualizar AGENTS.md y ARCHITECTURE.md si es necesario
+alwaysApply: true
+---
+
+# Sincronización de documentación
+
+Cuando realices cambios en el código que afecten a:
+
+- **Comportamiento del agente** (SentinelAgent, mensajes de sistema, flujo de análisis)
+- **CLI o comandos** (nuevos comandos, opciones, nombres)
+- **Herramientas MCP/Tools** (ProjectMcpTools, nuevas tools, parámetros)
+- **Configuración del LLM** (OllamaConfig, modelo, URL)
+- **Estructura de paquetes o clases** (nuevos paquetes, renombres, responsabilidades)
+
+debes **revisar y actualizar** estos archivos en la raíz del proyecto:
+
+1. **AGENTS.md** — Que refleje la identidad del agente, capacidades, invocación (comando exacto) y la implementación en el backend (clases, herramientas disponibles).
+2. **ARCHITECTURE.md** — Que refleje el diagrama de componentes, la tabla de componentes, la estructura de paquetes y el flujo actual (quién llama a qué).
+
+No es necesario tocar la documentación por cambios puramente internos (refactors que no cambien responsabilidades visibles, corrección de typos, tests). Ante duda, actualizar para mantener la documentación alineada con el código.

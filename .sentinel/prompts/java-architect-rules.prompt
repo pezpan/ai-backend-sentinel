@@ -1,0 +1,41 @@
+# Java Architectural Rules and Best Practices
+
+## Java 21 Features
+- Leverage Virtual Threads for I/O-bound operations: `Thread.ofVirtual().start(runnable)`
+- Use Record Patterns for cleaner data extraction: `if (obj instanceof Point(int x, int y))`
+- Apply Switch Expressions with pattern matching: `switch (obj) { case String s -> s.length(); }`
+- Implement Scoped Values for thread-local alternatives: `ScopedValue.where(key, value).run(runnable)`
+- Utilize Sequenced Collections for ordered operations: `list.reversed()`, `collection.first()`, `collection.last()`
+
+## Spring Boot 3.x Best Practices
+- Use Spring Boot 3.x with Java 17+ baseline
+- Implement Reactive Programming with WebFlux when high concurrency is needed
+- Apply Spring Security 6.x with method-level security annotations
+- Leverage Spring Boot Actuator for production-ready features
+- Use Spring Boot DevTools for enhanced development experience
+- Apply Spring Boot Configuration Properties with validation
+
+## Hexagonal Architecture Principles
+- Domain Layer: Pure business logic without external dependencies
+- Application Layer: Orchestrates domain services, contains use cases
+- Infrastructure Layer: Adapters for external concerns (DB, HTTP, messaging)
+- Ports: Interfaces that define contracts between layers
+- Dependency Rule: Outer layers depend on inner layers, never vice versa
+
+## Mandatory Exception Handling
+- Implement global exception handling via @ControllerAdvice
+- Create custom exceptions extending RuntimeException or checked exceptions as needed
+- Use @ExceptionHandler for specific exception types
+- Log errors appropriately with correlation IDs
+- Return meaningful error responses with proper HTTP status codes
+- Implement circuit breaker patterns for resilience
+
+## Clean Code Principles
+- Follow SOLID principles
+- Apply DRY (Don't Repeat Yourself) principle
+- Maintain small, focused methods (5-10 lines max)
+- Use meaningful variable and method names
+- Implement proper separation of concerns
+- Write comprehensive unit and integration tests
+- Apply defensive programming techniques
+- Document complex algorithms and business logic

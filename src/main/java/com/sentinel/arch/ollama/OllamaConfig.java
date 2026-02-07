@@ -34,9 +34,8 @@ public class OllamaConfig {
     public boolean isAvailable() {
         try {
             var response = createModel().chat("Responde solo: OK");
-            var text = response == null ? null : response.aiMessage().text();
-            log.debug("Ollama health check response: {}", text);
-            return text != null && !text.isBlank();
+            log.debug("Ollama health check response: {}", response);
+            return response != null && !response.isBlank();
         } catch (Exception e) {
             log.warn("Ollama no disponible en {} (modelo {}): {}", baseUrl, modelName, e.getMessage());
             return false;

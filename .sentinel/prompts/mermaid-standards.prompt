@@ -1,0 +1,82 @@
+# Mermaid Standards for Diagram Generation
+
+## Sequence Diagram Syntax
+```mermaid
+sequenceDiagram
+    participant Client
+    participant Controller
+    participant Service
+    participant Repository
+    
+    Client->>Controller: HTTP Request
+    Controller->>Service: Business Logic Call
+    Service->>Repository: Data Access
+    Repository-->>Service: Data Response
+    Service-->>Controller: Processed Result
+    Controller-->>Client: HTTP Response
+```
+
+### Key Elements:
+- Use `->>` for synchronous calls
+- Use `-->>` for responses
+- Use `->` for asynchronous calls
+- Use `Note over A,B: message` for annotations
+- Use `alt/else/end` for conditional flows
+- Use `loop end` for repetitive actions
+
+## Flowchart Syntax
+```mermaid
+flowchart TD
+    A[Start] --> B{Condition}
+    B -->|Yes| C[Action 1]
+    B -->|No| D[Action 2]
+    C --> E[End]
+    D --> E
+```
+
+### Node Types:
+- `( )` for rounded rectangles
+- `[ ]` for rectangles
+- `{ }` for diamonds (decisions)
+- `(( ))` for circles (start/end)
+- `| |` for bars (terminators)
+
+### Direction Keywords:
+- TD: Top Down
+- LR: Left to Right
+- RL: Right to Left
+- BT: Bottom to Top
+
+## Class Diagram Syntax
+```mermaid
+classDiagram
+    class Customer {
+        -String customerId
+        -String name
+        +placeOrder(Order order)
+    }
+    
+    class Order {
+        -String orderId
+        -Date orderDate
+        +calculateTotal()
+    }
+    
+    Customer ||--o{ Order : places
+```
+
+### Relationship Types:
+- `<|--` for inheritance
+- `*--` for composition
+- `o--` for aggregation
+- `-->` for association
+- `..>` for dependency
+
+## General Standards
+- Use consistent naming conventions
+- Limit node labels to 20 characters for readability
+- Use descriptive but concise labels
+- Maintain consistent colors and styling
+- Ensure diagrams are horizontally readable
+- Use proper escaping for special characters
+- Validate syntax before rendering

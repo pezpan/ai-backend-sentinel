@@ -1,0 +1,35 @@
+graph TD
+    subgraph "User Interface (IDE)"
+        IDE[IntelliJ / Cursor]
+        CONT[Plugin: Continue / Slash Commands]
+    end
+
+    subgraph "AI Brain (Local Infrastructure)"
+        OL[Ollama Server]
+        QW[Qwen2.5-Coder 7B]
+        MX[mxbai-embed-large]
+        OL --- QW
+        OL --- MX
+    end
+
+    subgraph "Sentinel Backend (Java 21)"
+        MCP[MCP Server Interface]
+        TOOL[Inference Tools: discover_service_interconnections]
+        PICO[Picocli CLI]
+    end
+
+    subgraph "Target Context"
+        CODE[Source Code: REST/gRPC/Kafka]
+        FS[File System: SENTINEL_REPORT.md]
+    end
+
+    %% Flow of communication
+    IDE -->|1. User Prompt| CONT
+    CONT <-->|2. Semantic Search| MX
+    CONT <-->|3. Reasoning| QW
+    CONT <-->|4. Tool Execution JSON-RPC| MCP
+    MCP -->|5. Static Analysis| CODE
+    TOOL -->|6. Metadata Extraction| MCP
+    MCP -->|7. Data Return| CONT
+    CONT -->|8. Final Report Generation| FS
+    PICO -->|Standalone Execution| MCP
