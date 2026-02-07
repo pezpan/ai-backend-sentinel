@@ -1,6 +1,7 @@
 package com.sentinel.arch;
 
 import com.sentinel.arch.cli.AnalyzeCommand;
+import com.sentinel.arch.cli.AuditCommand;
 import picocli.CommandLine;
 import picocli.CommandLine.Command;
 
@@ -11,7 +12,7 @@ import picocli.CommandLine.Command;
         name = "sentinel",
         description = "Agente Sentinel-Arch: análisis de microservicios Java con IA local (LangChain4j + Ollama + MCP)",
         mixinStandardHelpOptions = true,
-        subcommands = { AnalyzeCommand.class }
+        subcommands = { AnalyzeCommand.class, AuditCommand.class }
 )
 public class SentinelCommand implements Runnable {
 
