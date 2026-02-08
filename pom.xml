@@ -83,6 +83,12 @@
             <artifactId>mcp</artifactId>
             <version>${mcp.sdk.version}</version>
         </dependency>
+        <!-- JavaParser: AST-based Java code analysis -->
+        <dependency>
+            <groupId>com.github.javaparser</groupId>
+            <artifactId>javaparser-symbol-solver-core</artifactId>
+            <version>3.26.2</version>
+        </dependency>
         <!-- Test -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>

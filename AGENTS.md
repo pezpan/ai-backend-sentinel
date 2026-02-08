@@ -19,7 +19,7 @@ Ofrecer, vía MCP, un conjunto de herramientas especializadas para:
 - **Exposición de herramientas (tools):**  
   - Exploración de estructura de proyecto (directorios, módulos, servicios).  
   - Lectura de archivos clave (`pom.xml`, controladores, servicios, configuraciones).  
-  - Análisis de arquitectura usando LangChain4j + modelo local (`qwen2.5-coder:7b` vía Ollama).
+  - Análisis de arquitectura usando LangChain4j + modelo local (`qwen2.5-coder:3b` vía Ollama).
 - **Integración con IDEs / clientes MCP:**  
   - El servidor escucha por **STDIO** y habla JSON-RPC siguiendo el estándar MCP.  
   - Los clientes (Cursor, IntelliJ, etc.) descubren automáticamente las herramientas expuestas.

@@ -28,18 +28,18 @@ public class ProjectMcpTools {
         // Validación de seguridad para asegurar que el archivo se crea dentro del directorio del proyecto
         Path basePath = Paths.get("").toAbsolutePath().normalize();
         Path targetPath = basePath.resolve(fileName).normalize();
-        
+
         // Verificar que el path resultante esté dentro del directorio base
         if (!targetPath.startsWith(basePath)) {
             return "Error: La ruta especificada está fuera del directorio del proyecto.";
         }
-        
+
         // Verificar que el archivo tenga una extensión permitida (por seguridad)
         String fileExtension = getFileExtension(fileName);
         if (!isValidFileExtension(fileExtension)) {
             return "Error: Extensión de archivo no permitida. Solo se permiten .md, .txt, .json, .yaml, .yml.";
         }
-        
+
         // Escribir el contenido en el archivo
         Files.write(targetPath, content.getBytes("UTF-8"));
         return "Reporte de arquitectura guardado exitosamente en: " + targetPath.toString();
@@ -52,7 +52,36 @@ public class ProjectMcpTools {
     public String discover_service_interconnections(String projectPath) throws IOException {
         return discovery.discover_service_interconnections(projectPath);
     }
-    
+
+    // Delegate the Maven project structure analyzer tool
+    private final MavenProjectStructureAnalyzer structureAnalyzer = new MavenProjectStructureAnalyzer();
+
+    @Tool("Analyzes Maven project structure to identify modules, their dependencies, and proprietary frameworks")
+    public String get_project_structure(String projectPath) throws IOException {
+        return structureAnalyzer.get_project_structure(projectPath);
+    }
+
+    @Tool("Analyzes Maven project structure to identify modules, their dependencies, and proprietary frameworks with custom organization pattern")
+    public String get_project_structure(String projectPath, String orgPattern) throws IOException {
+        return structureAnalyzer.get_project_structure(projectPath, orgPattern);
+    }
+
+    // Delegate the architectural signatures extractor tool
+    private final ArchitecturalSignaturesExtractor signaturesExtractor = new ArchitecturalSignaturesExtractor();
+
+    @Tool("Extracts architectural signatures from Java files including annotations, class names, and outbound calls")
+    public String extract_architectural_signatures(String projectPath) throws IOException {
+        return signaturesExtractor.extract_architectural_signatures(projectPath);
+    }
+
+    // Delegate the master architecture report generator tool
+    private final MasterArchitectureReportGenerator reportGenerator = new MasterArchitectureReportGenerator();
+
+    @Tool("Generates a master architecture report by cross-referencing STRUCTURE.json and SIGNATURES.json")
+    public String generate_master_arch_report(String structureJsonPath, String signaturesJsonPath) throws IOException {
+        return reportGenerator.generate_master_arch_report(structureJsonPath, signaturesJsonPath);
+    }
+
     /**
      * Obtiene la extensión del archivo
      */
@@ -63,15 +92,15 @@ public class ProjectMcpTools {
         }
         return "";
     }
-    
+
     /**
      * Valida si la extensión del archivo es permitida
      */
     private boolean isValidFileExtension(String extension) {
-        return extension.equals(".md") || 
-               extension.equals(".txt") || 
-               extension.equals(".json") || 
-               extension.equals(".yaml") || 
+        return extension.equals(".md") ||
+               extension.equals(".txt") ||
+               extension.equals(".json") ||
+               extension.equals(".yaml") ||
                extension.equals(".yml");
     }
 }

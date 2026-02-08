@@ -27,7 +27,7 @@
                                                     │
                                                     ▼
 ┌─────────────────────────────────────────────────────────────────────────────┐
-│  Ollama (localhost:11434) — Modelo: qwen2.5-coder:7b                         │
+│  Ollama (localhost:11434) — Modelo: qwen2.5-coder:3b                         │
 └─────────────────────────────────────────────────────────────────────────────┘
 ```
 
@@ -39,15 +39,15 @@
 
 ## Componentes principales
 
-| Componente           | Clase / tecnología   | Responsabilidad                                              |
-|---------------------|----------------------|--------------------------------------------------------------|
-| Entrada              | Picocli              | CLI: `sentinel analyze -p/--path <dir>`                     |
-| Comando analyze      | `AnalyzeCommand`     | Crea OllamaConfig, ChatModel, AiServices + SentinelAgent + Tools |
+| Componente           | Clase / tecnología   | Responsabilidad                                                                |
+|---------------------|----------------------|--------------------------------------------------------------------------------|
+| Entrada              | Picocli              | CLI: `sentinel analyze -p/--path <dir>`                                        |
+| Comando analyze      | `AnalyzeCommand`     | Crea OllamaConfig, ChatModel, AiServices + SentinelAgent + Tools               |
 | Agente               | `SentinelAgent`      | Interfaz con `@SystemMessage` y `analyze(prompt)`; implementada por AiServices |
-| Modelo local         | `OllamaConfig`       | Configuración y creación de `ChatModel` (Ollama qwen2.5-coder:7b) |
-| Herramientas (MCP-style) | `ProjectMcpTools` | `@Tool` readProjectStructure, readJavaFile                   |
-| Logging              | SLF4J/Logback        | Trazas y depuración                                          |
-| Serialización        | Jackson              | JSON (y futuro uso en mensajes/tools si se extiende)          |
+| Modelo local         | `OllamaConfig`       | Configuración y creación de `ChatModel` (Ollama qwen2.5-coder:3b)              |
+| Herramientas (MCP-style) | `ProjectMcpTools` | `@Tool` readProjectStructure, readJavaFile                                     |
+| Logging              | SLF4J/Logback        | Trazas y depuración                                                            |
+| Serialización        | Jackson              | JSON (y futuro uso en mensajes/tools si se extiende)                           |
 
 ## Estructura de paquetes
 

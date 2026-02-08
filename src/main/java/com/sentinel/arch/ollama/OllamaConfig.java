@@ -5,16 +5,18 @@ import dev.langchain4j.model.ollama.OllamaChatModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.time.Duration;
+
 /**
  * Configuración y verificación de conexión con Ollama (modelo local).
- * "Hello World" de LangChain4j contra qwen2.5-coder:7b en localhost:11434.
+ * "Hello World" de LangChain4j contra qwen2.5-coder:3b en localhost:11434.
  */
 public class OllamaConfig {
 
     private static final Logger log = LoggerFactory.getLogger(OllamaConfig.class);
 
     private static final String DEFAULT_BASE_URL = "http://localhost:11434";
-    private static final String DEFAULT_MODEL = "qwen2.5-coder:7b";
+    private static final String DEFAULT_MODEL = "qwen2.5-coder:3b";
 
     private final String baseUrl;
     private final String modelName;
@@ -49,6 +51,7 @@ public class OllamaConfig {
         return OllamaChatModel.builder()
                 .baseUrl(baseUrl)
                 .modelName(modelName)
+                .timeout(Duration.ofMinutes(10)) // Timeout extendido para tareas complejas
                 .temperature(0.0)
                 .build();
     }
